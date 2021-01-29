@@ -44,7 +44,18 @@ webexDP/InACall - True/False. True if you're in a call.
 If you're in a call when you start the script, the status isn't going to update until you hang up.
 This is because rather than querying for current status, we subscribe to status changes. 
 
-You can at the very least create a status indicator to show your call status:
+You can at the very least create a status indicator to show your call status. In configuration.yaml:
+```yaml
+binary_sensor:
+  - platform: mqtt
+    name: "Desk Pro Active"
+    state_topic: "webexDP/InACall"
+    payload_on: "True"
+    payload_off: "False"
+    device_class: occupancy
+```
+
+
 ![](inactive.png)
 ![](active.png)
 
