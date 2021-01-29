@@ -5,6 +5,7 @@ FROM python:3.9-slim-buster AS base
 FROM base AS build-image
 RUN apt update
 RUN apt install --no-install-recommends -y build-essential gcc libffi-dev
+EXPOSE 5001
 
 WORKDIR /app
 
