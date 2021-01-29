@@ -22,6 +22,9 @@ api = Api(app)
 """ mqtt port is optional and defaults to 1883, only need to define if it's different"""
 
 # Webex DeskPro Config
+if os.environ.get("SERVER_IP"):
+    app.config.update(dict(SERVER_IP=os.environ.get("SERVER_IP")))
+
 if os.environ.get("DESKPRO_TOKEN"):
     app.config.update(dict(DESKPRO_TOKEN=os.environ.get("DESKPRO_TOKEN")))
 
@@ -63,7 +66,7 @@ def setup():
         "    <HttpFeedback>"
         '        <Register command="true">'
         "            <FeedbackSlot>1</FeedbackSlot>"
-        "            <ServerUrl>http://10.0.0.14:5001</ServerUrl>"
+        "            <ServerUrl>http://" + app.config['SERVER_IP'] + ":5001</ServerUrl>"
         "            <Format>JSON</Format>"
         '            <Expression item="1">/Event/CallSuccessful</Expression>'
         '            <Expression item="2">/Event/CallDisconnect</Expression>'

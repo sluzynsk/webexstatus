@@ -30,6 +30,7 @@ docker run -d --env DESKPRO_TOKEN=<token> \
     --env MQTT_PORT=<port> \
     --env MQTT_USERNAME=<username> \
     --env MQTT_PASSWORD=<password> \
+    --env SERVER_IP=<ip of the docker server> \
     -P 5001:5001 \
     sluzynsk/webexstatus
 ```
