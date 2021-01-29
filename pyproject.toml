@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "webexstatus"
+version = "0.1.0"
+description = "Subscribes to events from the local API on a Desk Pro and relays them via MQTT"
+authors = ["Steven Luzynski <sluzynsk@cisco.com>"]
+license = "MIT"
+classifiers = [
+    "Topic :: Software Development :: Libraries :: Python Modules"
+]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+requests = "^2.25.1"
+paho-mqtt = "^1.5.1"
+Flask = "^1.1.2"
+Flask-RESTful = "^0.3.8"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
