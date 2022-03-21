@@ -36,6 +36,8 @@ if os.environ.get("MQTT_HOST"):
 
 if os.environ.get("MQTT_PORT"):
     app.config.update(dict(MQTT_PORT=os.environ.get("MQTT_PORT")))
+else:
+    app.config.update(dict(MQTT_PORT="1883"))
 
 if os.environ.get("MQTT_USERNAME"):
     app.config.update(dict(MQTT_USERNAME=os.environ.get("MQTT_USERNAME")))
