@@ -102,6 +102,7 @@ def mqtt_publish(mqtt_msg, payload):
         port=int(app.config['MQTT_PORT']),
         keepalive=60,
         auth=auth,
+        retain=True,
     )
 
 
