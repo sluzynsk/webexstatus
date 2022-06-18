@@ -88,6 +88,9 @@ def setup():
     print("Sending good morning to MQTT.")
     mqtt_publish("webexDP/Available", "True")
 
+    print("Sending a clear message to MQTT to avoid unknown state.")
+    mqtt_publish("webexDP/InACall", "False")
+
 
 def mqtt_publish(mqtt_msg, payload):
     # Publish message to a local MQTT broker for other clients to subscribe
@@ -102,7 +105,6 @@ def mqtt_publish(mqtt_msg, payload):
         port=int(app.config['MQTT_PORT']),
         keepalive=60,
         auth=auth,
-        retain=True,
     )
 
 
