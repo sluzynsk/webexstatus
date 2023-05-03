@@ -9,11 +9,11 @@ classifiers = [
 ]
 
 [tool.poetry.dependencies]
-python = "^3.9"
-requests = "^2.25.1"
-paho-mqtt = "^1.5.1"
-Flask = "^1.1.2"
-Flask-RESTful = "^0.3.8"
+python = ">=3.9"
+requests = ">=2.25.1"
+paho-mqtt = ">=1.5.1"
+Flask = ">=1.1.2"
+Flask-RESTful = ">=0.3.8"
 
 [tool.poetry.dev-dependencies]
 
