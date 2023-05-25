@@ -20,7 +20,7 @@ Next you will need a basic auth token. You may find that
 works for you to make one. If you worry about sending your password
 to a random website, then make one via the method of your choice.
 
-Finally, run the container.
+Finally, run the container. I am currently building and pushing amd64 and arm64 builds to Dockerhub.
 
 ## Running
 ``` bash
