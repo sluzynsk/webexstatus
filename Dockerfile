@@ -1,7 +1,7 @@
 ##
 ## Dockerfile for Webex Desk Pro Call Status to MQTT
 ##
-FROM python:3.10-slim-bullseye AS base
+FROM python:3.11-slim-bullseye AS base
 FROM base AS build-image
 RUN apt update
 RUN apt install --no-install-recommends -y build-essential gcc libffi-dev

@@ -12,6 +12,7 @@ import os
 from paho.mqtt import publish
 from flask import Flask
 from flask import request
+from flask_api import status
 from flask_restful import Api
 
 app = Flask(__name__)
@@ -76,27 +77,22 @@ def setup():
         "    </HttpFeedback>"
         "</Command>"
     )
+
     headers = {"Authorization": f"Basic {app.config['DESKPRO_TOKEN']}"}
 
     response = requests.request(
         "POST", url, headers=headers, data=payload, verify=False
     )
 
-    print("Registration sent. Response:")
-    print(response.text)
-
-    print("Sending good morning to MQTT.")
     mqtt_publish("webexDP/Available", "True")
 
-    print("Sending a clear message to MQTT to avoid unknown state.")
     mqtt_publish("webexDP/InACall", "False")
 
 
 def mqtt_publish(mqtt_msg, payload):
     # Publish message to a local MQTT broker for other clients to subscribe
 
-    print(f"Topic: {mqtt_msg} Host: {app.config['MQTT_HOST']}")
-    print(f"Port: {app.config['MQTT_PORT']}")
+    print(f"Topic: {mqtt_msg} Host: {app.config['MQTT_HOST']} Port: {app.config['MQTT_PORT']}")
 
     publish.single(
         topic=mqtt_msg,
@@ -135,8 +131,8 @@ def on_exit(error):
     return "ok"
 
 
-@app.route("/", methods=["POST"])
-def index():
+@app.post("/")
+def index_post():
     incoming = request.json
 
     event = next(iter(incoming['Event']))
@@ -151,6 +147,19 @@ def index():
         print("Unknown event I didn't subscribe to. Wierd.")
 
     return "ok"
+
+
+@app.post("/onvif/")
+def onvif_post():
+    print("Someone thinks I'm a camera.")
+    return status.HTTP_400_BAD_REQUEST
+
+
+@app.get("/")
+def index_get():
+    print("GET call.")
+    return status.HTTP_400_BAD_REQUEST
+
 
 if __name__ == "__main__":
     setup()
