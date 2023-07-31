@@ -19,8 +19,9 @@ app = Flask(__name__)
 app.config.from_object(app)
 api = Api(app)
 
-""" Set script variables from environment"""
-""" mqtt port is optional and defaults to 1883, only need to define if it's different"""
+""" Set script variables from environment """
+""" mqtt port is optional and defaults to 1883, only need to define if it's different """
+""" app port defaults to 5001 but will accept a variable if you need a different port """
 
 # Webex DeskPro Config
 if os.environ.get("SERVER_IP"):
@@ -46,6 +47,11 @@ if os.environ.get("MQTT_USERNAME"):
 if os.environ.get("MQTT_PASSWORD"):
     app.config.update(dict(MQTT_PASSWORD=os.environ.get("MQTT_PASSWORD")))
 
+if os.environ.get("APP_PORT"):
+    app.config.update(dict(APP_PORT=os.environ.get("APP_PORT")))
+else:
+    app.config.update(dict(APP_PORT="5001"))
+
 # Broker Configuration
 
 auth = {
@@ -69,7 +75,7 @@ def setup():
         "    <HttpFeedback>"
         '        <Register command="true">'
         "            <FeedbackSlot>1</FeedbackSlot>"
-        "            <ServerUrl>http://" + app.config['SERVER_IP'] + ":5001</ServerUrl>"
+        "            <ServerUrl>http://" + app.config['SERVER_IP'] + ":" + app.config['APP_PORT'] + "</ServerUrl>"
         "            <Format>JSON</Format>"
         '            <Expression item="1">/Event/CallSuccessful</Expression>'
         '            <Expression item="2">/Event/CallDisconnect</Expression>'
@@ -163,5 +169,5 @@ def index_get():
 
 if __name__ == "__main__":
     setup()
-    app.run(host="0.0.0.0", port=5001)
+    app.run(host="0.0.0.0", port=app.config['APP_PORT'])
     on_exit(0)
