@@ -14,6 +14,7 @@ from flask import Flask
 from flask import request
 from flask_api import status
 from flask_restful import Api
+from requests import Response
 
 app = Flask(__name__)
 app.config.from_object(app)
@@ -86,7 +87,7 @@ def setup():
 
     headers = {"Authorization": f"Basic {app.config['DESKPRO_TOKEN']}"}
 
-    response = requests.request(
+    response: Response = requests.request(
         "POST", url, headers=headers, data=payload, verify=False
     )
 
