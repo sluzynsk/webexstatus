@@ -72,17 +72,17 @@ def setup():
 
     url = f"https://{app.config['DESKPRO_IP']}/putxml"
     payload = (
-        "<Command>"
-        "    <HttpFeedback>"
-        '        <Register command="true">'
-        "            <FeedbackSlot>1</FeedbackSlot>"
-        "            <ServerUrl>http://" + app.config['SERVER_IP'] + ":" + app.config['APP_PORT'] + "</ServerUrl>"
-        "            <Format>JSON</Format>"
-        '            <Expression item="1">/Event/CallSuccessful</Expression>'
-        '            <Expression item="2">/Event/CallDisconnect</Expression>'
-        "        </Register>"
-        "    </HttpFeedback>"
-        "</Command>"
+            "<Command>"
+            "    <HttpFeedback>"
+            '        <Register command="true">'
+            "            <FeedbackSlot>1</FeedbackSlot>"
+            "            <ServerUrl>http://" + app.config['SERVER_IP'] + ":" + app.config['APP_PORT'] + "</ServerUrl>"
+            "            <Format>JSON</Format>"
+            '            <Expression item="1">/Event/CallSuccessful</Expression>'
+            '            <Expression item="2">/Event/CallDisconnect</Expression>'
+            "        </Register>"
+            "    </HttpFeedback>"
+            "</Command>"
     )
 
     headers = {"Authorization": f"Basic {app.config['DESKPRO_TOKEN']}"}
@@ -91,9 +91,12 @@ def setup():
         "POST", url, headers=headers, data=payload, verify=False
     )
 
-    mqtt_publish("webexDP/Available", "True")
-
-    mqtt_publish("webexDP/InACall", "False")
+    if response:
+        mqtt_publish("webexDP/Available", "True")
+        mqtt_publish("webexDP/InACall", "False")
+    else:
+        mqtt_publish("webexDP/Available", "False")
+        print("Unable to register with Desk Pro")
 
 
 def mqtt_publish(mqtt_msg, payload):
@@ -129,7 +132,7 @@ def on_exit(error):
         "POST", url, headers=headers, data=payload, verify=False
     )
 
-    print(f"Deregistering to try to clean up. Error code I got was {error}.")
+    print(f"Unregistering to try to clean up. Error code I got was {error}.")
     print(response.text)
 
     # Try to take the HA entity offline on my way down
@@ -166,6 +169,12 @@ def onvif_post():
 def index_get():
     print("GET call.")
     return status.HTTP_400_BAD_REQUEST
+
+
+@app.get("/healthcheck")
+def index_get():
+    print("Healthcheck call.")
+    return status.HTTP_200_OK
 
 
 if __name__ == "__main__":
