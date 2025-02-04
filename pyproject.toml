@@ -1,6 +1,6 @@
 [project]
 name = "webexstatus"
-version = "0.1.0"
+version = "0.2.0"
 description = "Subscribes to events from the local API on a Desk Pro and relays them via MQTT"
 authors = [ 
 { name = "Steven Luzynski", email = "steve@luzynski.net"}, 
@@ -19,5 +19,6 @@ dependencies = [
 ]
 
 [build-system]
-requires = ["poetry-core>=1.0.0"]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
+
