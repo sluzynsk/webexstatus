@@ -2,8 +2,8 @@
 
 ########################################################################################################################
 # status.py      Relay call status from Webex Desk Pro to MQTT
-# Author:               Steve Luzynski - sluzynsk@cisco.com
-# Date:                 Jan 29, 2021
+# Author:               Steve Luzynski - steve@luzynski.net
+# Date:                 Jan 29, 2021 - updated Feb 4,2025
 ########################################################################################################################
 
 import requests

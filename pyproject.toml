@@ -1,22 +1,22 @@
-[tool.poetry]
+[project]
 name = "webexstatus"
 version = "0.1.0"
 description = "Subscribes to events from the local API on a Desk Pro and relays them via MQTT"
-authors = ["Steven Luzynski <sluzynsk@cisco.com>"]
+authors = [ 
+{ name = "Steven Luzynski", email = "steve@luzynski.net"}, 
+]
 license = "MIT"
 classifiers = [
     "Topic :: Software Development :: Libraries :: Python Modules"
 ]
-
-[tool.poetry.dependencies]
-python = ">=3.11"
-requests = ">=2.31.0"
-paho-mqtt = ">=1.5.1"
-Flask = ">=1.1.2"
-Flask-RESTful = ">=0.3.8"
-flask-api = "^3.0.post1"
-
-[tool.poetry.dev-dependencies]
+requires-python = ">=3.12"
+dependencies = [
+  "requests >= 2.31.0",
+  "paho-mqtt >= 1.5.1",
+  "Flask >= 1.1.2",
+  "Flask-RESTful >= 0.3.8",
+  "flask-api >= 3.0.post1",
+]
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
